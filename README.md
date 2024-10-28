@@ -41,6 +41,7 @@ Pendant l'installation :
 Username: admin
 Password: REDf0x26?
    ![Installation](cyberpa.png)
+   ![Installation](cyberpanel.png)
 
 Une fois l'installation terminée, accédez à CyberPanel via `https://zera.cyberspector:8090`.
 
@@ -49,7 +50,7 @@ Une fois l'installation terminée, accédez à CyberPanel via `https://zera.cybe
 ## Configuration du Domaine et SSL
 
 ### Étape 1 : Ajouter un domaine
-1. Connectez-vous à **CyberPanel** (`https://votre_ip_serveur:8090`).
+1. Connectez-vous à **CyberPanel** (`https://zera.cyberspector:8090`).
 2. Allez dans **Websites > Create Website**.
 3. Remplissez les informations requises pour ajouter un domaine  pour chaque client.
 
