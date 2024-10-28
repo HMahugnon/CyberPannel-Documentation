@@ -9,7 +9,7 @@ Ce guide explique comment installer **CyberPanel** sur un serveur Linux et confi
 ---
 
 ## Prérequis
-- Un serveur Linux (Ubuntu 20.04 ou CentOS 7 recommandé).
+- Un serveur Linux (Ubuntu 20.04).
 - Accès root ou sudo au serveur.
 - Un nom de domaine configuré pour pointer vers le serveur.
 
@@ -21,14 +21,15 @@ Ce guide explique comment installer **CyberPanel** sur un serveur Linux et confi
 Avant de commencer, mettez à jour votre serveur :
 ```bash
 sudo apt update && sudo apt upgrade -y   # Pour Ubuntu/Debian
-sudo yum update -y                       # Pour CentOS
 ```
+![Installation](blob/main/add%20record.png)
 
 ### Étape 2 : Installer CyberPanel
 Exécutez la commande suivante pour télécharger et installer **CyberPanel** :
 ```bash
 sudo sh <(curl -s https://cyberpanel.net/install.sh)
 ```
+![Texte alternatif](chemin/vers/image.png)
 
 ### Étape 3 : Choisir les options d'installation
 Pendant l'installation :
