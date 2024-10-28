@@ -57,7 +57,7 @@ Une fois l'installation terminée, accédez à CyberPanel via `https://zera.cybe
 ### Étape 2 : Activer SSL pour le Domaine
 1. Accédez à **Websites > List Websites**.
 2. Sélectionnez le domaine et cliquez sur **Issue SSL** pour générer un certificat SSL Let's Encrypt.
-
+![Installation](site%cyberpanel.png)
 ---
 
 ## Configuration de la Messagerie
