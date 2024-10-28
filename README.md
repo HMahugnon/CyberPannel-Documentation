@@ -22,14 +22,13 @@ Avant de commencer, mettez à jour votre serveur :
 ```bash
 sudo apt update && sudo apt upgrade -y   # Pour Ubuntu/Debian
 ```
-![Installation](blob/main/add%20record.png)
+![Installation](add%20record.png)
 
 ### Étape 2 : Installer CyberPanel
 Exécutez la commande suivante pour télécharger et installer **CyberPanel** :
 ```bash
 sudo sh <(curl -s https://cyberpanel.net/install.sh)
 ```
-![Texte alternatif](chemin/vers/image.png)
 
 ### Étape 3 : Choisir les options d'installation
 Pendant l'installation :
