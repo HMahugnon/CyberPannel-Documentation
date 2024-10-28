@@ -22,12 +22,15 @@ Avant de commencer, mettez à jour votre serveur :
 ```bash
 sudo apt update && sudo apt upgrade -y   # Pour Ubuntu/Debian
 ```
-![Installation](add%20record.png)
+
 
 ### Étape 2 : Installer CyberPanel
 Exécutez la commande suivante pour télécharger et installer **CyberPanel** :
 ```bash
 sudo sh <(curl -s https://cyberpanel.net/install.sh)
+
+Username: admin
+Password: REDf0x26?
 ```
 
 ### Étape 3 : Choisir les options d'installation
@@ -35,8 +38,11 @@ Pendant l'installation :
 1. Choisissez **OpenLiteSpeed** (gratuit) ou **LiteSpeed Enterprise** (licence payante).
 2. Activez l'option pour installer **Postfix** (service de messagerie).
 3. Suivez les instructions pour définir un mot de passe admin.
+Username: admin
+Password: REDf0x26?
+   ![Installation](cyberpa.png)
 
-Une fois l'installation terminée, accédez à CyberPanel via `https://votre_ip_serveur:8090`.
+Une fois l'installation terminée, accédez à CyberPanel via `https://zera.cyberspector:8090`.
 
 ---
 
@@ -45,7 +51,7 @@ Une fois l'installation terminée, accédez à CyberPanel via `https://votre_ip_
 ### Étape 1 : Ajouter un domaine
 1. Connectez-vous à **CyberPanel** (`https://votre_ip_serveur:8090`).
 2. Allez dans **Websites > Create Website**.
-3. Remplissez les informations requises pour ajouter un domaine (ou sous-domaine) pour chaque client.
+3. Remplissez les informations requises pour ajouter un domaine  pour chaque client.
 
 ### Étape 2 : Activer SSL pour le Domaine
 1. Accédez à **Websites > List Websites**.
@@ -57,16 +63,16 @@ Une fois l'installation terminée, accédez à CyberPanel via `https://votre_ip_
 
 ### Étape 1 : Créer un domaine de messagerie
 1. Dans **CyberPanel**, allez dans **Email > Create Mail Domain**.
-2. Sélectionnez le domaine du client, par exemple `client1.mondemo.com`.
+2. Sélectionnez le domaine du client, par exemple `cyber.cyber-spector.icu`.
 
 ### Étape 2 : Créer des comptes e-mail
 1. Allez dans **Email > Create Email**.
-2. Choisissez le domaine de messagerie, puis créez les adresses e-mail requises (par ex. `contact@client1.mondemo.com`).
+2. Choisissez le domaine de messagerie, puis créez les adresses e-mail requises (par ex. `admin.cyber.cyber-spector.icu`).
 
 ### Étape 3 : Configurer les Enregistrements DNS (MX, SPF, DKIM)
 Pour assurer une bonne délivrabilité des e-mails, configurez les enregistrements **MX**, **SPF**, **DKIM**, et **DMARC** pour le domaine du client :
 
-- **Enregistrement MX** : Pointez vers `mail.client1.mondemo.com` avec une priorité de 10.
+- **Enregistrement MX** : Pointez vers `mail.cyber.cyber-spector.icu` avec une priorité de 10.
 - **SPF** : Ajoutez l'enregistrement SPF pour autoriser votre serveur à envoyer des e-mails :
   ```
   v=spf1 mx ~all
@@ -74,7 +80,7 @@ Pour assurer une bonne délivrabilité des e-mails, configurez les enregistremen
 - **DKIM** : Activez DKIM dans **Email > DKIM Manager** et suivez les instructions pour ajouter l'enregistrement DNS DKIM.
 - **DMARC** (optionnel) :
   ```
-  v=DMARC1; p=none; rua=mailto:dmarc-reports@client1.mondemo.com
+  v=DMARC1; p=none; rua=mailto:dmarc-reports@cyber.cyber-spector.icu
   ```
 
 ---
@@ -82,7 +88,7 @@ Pour assurer une bonne délivrabilité des e-mails, configurez les enregistremen
 ## Tester les Services de Messagerie
 
 1. **Accédez au Webmail** : Utilisez **Rainloop** inclus dans **CyberPanel** pour tester l'envoi et la réception d’e-mails.
-   - Accédez via : `https://votre_ip_serveur:8090/rainloop`.
+   - Accédez via : `https://zera.cyberspector.xyz:8090/rainloop`.
 2. **Tester avec des clients externes** : Connectez les comptes e-mail aux clients comme **Outlook** ou **Thunderbird** avec les paramètres suivants :
    - **Serveur SMTP** : `mail.client1.mondemo.com`, port 587 (TLS)
    - **Serveur IMAP** : `mail.client1.mondemo.com`, port 993 (SSL)
