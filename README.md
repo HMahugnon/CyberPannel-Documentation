@@ -105,9 +105,34 @@ Pour assurer une bonne délivrabilité des e-mails, configurez les enregistremen
 
 ---
 
-## Automatisation avec WHMCS (Optionnel)
+## Intégration & Automatisation avec WHMCS 
 
-Si vous souhaitez automatiser la gestion des clients, la facturation et la création des comptes, envisagez d’intégrer **WHMCS** avec **CyberPanel**.
+Intégration & automatiser la gestion des clients, la facturation et la création des comptes, envisagez d’intégrer **WHMCS** avec **CyberPanel**.
+
+### Étape 1 : Uploader le Module de Cyberpanel
+** Télécharger le fichier grace à 
+```bash
+git clone https://github.com/jetchirag/cyberpanel-whmcs.git cyberpanel
+```
+*** Extrait et uploader le dossier dans
+
+cloudpilote>File Manager> Dossier de WHMCS > modules > Server 
+
+
+### Étape 2 : Interconnexion
+** Se rendre sur WHMCS > System Setting
+** > Server > Create a New Group
+![Creation du Groupe]([1.png])
+** > Server >Create a New Server
+![Creation du Serveur]([2.png])
+** > Product Service > Create New groupe
+** > Product Service > Create New service
+
+
+
+
+
+
 
 ---
 
