@@ -1,6 +1,6 @@
 # Documentation d'installation et de personnalisation de CyberPanel
 
-Bienvenue dans la documentation officielle de **CyberPanel**. Ce guide vous accompagne dans l’installation de CyberPanel, son intégration avec WHMCS, la configuration des services, et la personnalisation de la page CyberPanel pour vos clients.
+Bienvenue dans la documentation officielle de **CyberPanel**. Ce guide vous accompagne dans l’installation de CyberPanel, son intégration avec WHMCS, la configuration des services, et la personnalisation de la page CyberPanel pour les clients.
 
 ## Table des matières
 
@@ -16,11 +16,8 @@ Bienvenue dans la documentation officielle de **CyberPanel**. Ce guide vous acco
 
 ### Prérequis
 
-Avant de commencer l'installation, assurez-vous de disposer de ce qui suit :
-
 - Un serveur dédié ou VPS avec l’un des systèmes d’exploitation suivants :
-  - CentOS 7.x/8.x
-  - Ubuntu 20.04/22.04
+  - Ubuntu 22.04
 - Accès root ou un utilisateur avec privilèges sudo.
 
 ### Étapes d'installation
@@ -33,7 +30,7 @@ Avant de commencer l'installation, assurez-vous de disposer de ce qui suit :
    ```
 
 2. **Suivez les instructions d'installation :**
-   - Vous serez invité à choisir les composants à installer (par exemple, OpenLiteSpeed ou LiteSpeed Enterprise).
+   - Choisir les composants à installer (par exemple, OpenLiteSpeed).
    - Saisissez un mot de passe pour l’administrateur de CyberPanel.
 
 3. **Accédez à l'interface Web de CyberPanel :**
@@ -155,12 +152,6 @@ Lors de la création d'un service de messagerie pour un client, CyberPanel vous 
      default._domainkey.domaine.com.    IN    TXT    "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA..."
      ```
 
-4. **Enregistrement MSPMX** :
-   Un enregistrement MSPMX est utilisé pour spécifier le serveur de messagerie primaire. CyberPanel le configure automatiquement lors de l'ajout d'un service de messagerie.
-   - Exemple d'enregistrement MSPMX :
-     ```
-     domaine.com.    IN    MX    20 mail.domaine.com.
-     ```
 
 ### Processus automatisé pour chaque service mail commandé
 
@@ -168,7 +159,6 @@ Lors de la création d'un service de messagerie pour un client, CyberPanel vous 
 - **Enregistrement MX** : Configuration du serveur de messagerie principal.
 - **Enregistrement TXT** : Pour le SPF et autres vérifications.
 - **Enregistrement DKIM** : Génération d'une clé DKIM pour signer les e-mails.
-- **Enregistrement MSPMX** : Associer un serveur MSPMX.
 
 CyberPanel gère ces configurations de manière transparente, et vous pouvez visualiser ces paramètres dans le panneau de gestion DNS de CyberPanel.
 
