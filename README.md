@@ -1,147 +1,185 @@
-# CyberPannel-Documentation
-Installation de Cyberpannel
+# Documentation d'installation et de personnalisation de CyberPanel
 
-# README: Installation et Configuration de CyberPanel avec Services de Messagerie
+Bienvenue dans la documentation officielle de **CyberPanel**. Ce guide vous accompagne dans l’installation de CyberPanel, son intégration avec WHMCS, la configuration des services, et la personnalisation de la page CyberPanel pour vos clients.
 
-## Introduction
-Ce guide explique comment installer **CyberPanel** sur un serveur Linux et configurer des services de messagerie complets pour plusieurs domaines, y compris la configuration de SSL et des enregistrements DNS essentiels.
+## Table des matières
 
----
-
-## Prérequis
-- Un serveur Linux (Ubuntu 20.04).
-- Accès root ou sudo au serveur.
-- Un nom de domaine configuré pour pointer vers le serveur.
+1. [Installation de CyberPanel](#installation-de-cyberpanel)
+2. [Intégration de CyberPanel avec WHMCS](#integration-de-cyberpanel-avec-whmcs)
+3. [Configuration des services dans CyberPanel](#configuration-des-services-dans-cyberpanel)
+4. [Personnalisation de la page CyberPanel pour les clients](#personnalisation-de-la-page-cyberpanel-pour-les-clients)
+5. [Configuration des services de messagerie (MX, TXT, DKIM, MSPMX)](#configuration-des-services-de-messagerie-mx-txt-dkim-mspmx)
 
 ---
 
 ## Installation de CyberPanel
 
-### Étape 1 : Mettre à jour le serveur
-Avant de commencer, mettez à jour votre serveur :
-```bash
-sudo apt update && sudo apt upgrade -y   # Pour Ubuntu/Debian
-```
+### Prérequis
 
+Avant de commencer l'installation, assurez-vous de disposer de ce qui suit :
 
-### Étape 2 : Installer CyberPanel
-Exécutez la commande suivante pour télécharger et installer **CyberPanel** :
-```bash
-sudo sh <(curl -s https://cyberpanel.net/install.sh)
+- Un serveur dédié ou VPS avec l’un des systèmes d’exploitation suivants :
+  - CentOS 7.x/8.x
+  - Ubuntu 20.04/22.04
+- Accès root ou un utilisateur avec privilèges sudo.
 
-Username: admin
-Password: REDf0x26?
-```
+### Étapes d'installation
 
-### Étape 3 : Choisir les options d'installation
-Pendant l'installation :
-1. Choisissez **OpenLiteSpeed** (gratuit) ou **LiteSpeed Enterprise** (licence payante).
-2. Activez l'option pour installer **Postfix** (service de messagerie).
-3. Suivez les instructions pour définir un mot de passe admin.
-Username: admin
-Password: REDf0x26?
-   ![Installation](cyberpa.png)
-   ![Installation](cyberpanel.png)
+1. **Téléchargez et exécutez le script d'installation :**
+   ```bash
+   wget -O installer.sh https://cyberpanel.net/install.sh
+   chmod +x installer.sh
+   sudo ./installer.sh
+   ```
 
-Une fois l'installation terminée, accédez à CyberPanel via `https://zera.cyberspector:8090`.
+2. **Suivez les instructions d'installation :**
+   - Vous serez invité à choisir les composants à installer (par exemple, OpenLiteSpeed ou LiteSpeed Enterprise).
+   - Saisissez un mot de passe pour l’administrateur de CyberPanel.
 
----
-
-## Configuration du Domaine et SSL
-
-### Étape 1 : Ajouter un domaine
-1. Connectez-vous à **CyberPanel** (`https://zera.cyberspector:8090`).
-2. Allez dans **Websites > Create Website**.
-3. Remplissez les informations requises pour ajouter un domaine  pour chaque client.
-
-### Étape 2 : Activer SSL pour le Domaine
-1. Accédez à **Websites > List Websites**.
-2. Sélectionnez le domaine et cliquez sur **Issue SSL** pour générer un certificat SSL Let's Encrypt.
-![Installation]([site%20cyberpanel.png])
----
-
-## Configuration de la Messagerie
-
-### Étape 1 : Créer un domaine de messagerie
-1. Dans **CyberPanel**, allez dans **Email > Create Mail Domain**.
-2. Sélectionnez le domaine du client, par exemple `cyber.cyber-spector.icu`.
-
-### Étape 2 : Créer des comptes e-mail
-1. Allez dans **Email > Create Email**.
-2. Choisissez le domaine de messagerie, puis créez les adresses e-mail requises (par ex. `admin.cyber.cyber-spector.icu`).
-
-### Étape 3 : Configurer les Enregistrements DNS (MX, SPF, DKIM)
-Pour assurer une bonne délivrabilité des e-mails, configurez les enregistrements **MX**, **SPF**, **DKIM**, et **DMARC** pour le domaine du client :
-
-- **Enregistrement MX** : Pointez vers `mail.cyber.cyber-spector.icu` avec une priorité de 10.
-- **SPF** : Ajoutez l'enregistrement SPF pour autoriser votre serveur à envoyer des e-mails :
-  ```
-  v=spf1 mx ~all
-  ```
-- **DKIM** : Activez DKIM dans **Email > DKIM Manager** et suivez les instructions pour ajouter l'enregistrement DNS DKIM.
-- **DMARC** (optionnel) :
-  ```
-  v=DMARC1; p=none; rua=mailto:dmarc-reports@cyber.cyber-spector.icu
-  ```
+3. **Accédez à l'interface Web de CyberPanel :**
+   Une fois l'installation terminée, vous pouvez vous connecter à CyberPanel via votre navigateur en accédant à :
+   ```
+   http://<IP_DU_SERVEUR>:8090
+   ```
+   Utilisez le nom d'utilisateur et le mot de passe que vous avez définis pendant l'installation pour vous connecter.
 
 ---
 
-## Tester les Services de Messagerie
+## Intégration de CyberPanel avec WHMCS
 
-1. **Accédez au Webmail** : Utilisez **Rainloop** inclus dans **CyberPanel** pour tester l'envoi et la réception d’e-mails.
-   - Accédez via : `https://zera.cyberspector.xyz:8090/rainloop`.
-2. **Tester avec des clients externes** : Connectez les comptes e-mail aux clients comme **Outlook** ou **Thunderbird** avec les paramètres suivants :
-   - **Serveur SMTP** : `mail.client1.mondemo.com`, port 587 (TLS)
-   - **Serveur IMAP** : `mail.client1.mondemo.com`, port 993 (SSL)
+### Prérequis
 
----
+- Une instance de WHMCS fonctionnelle.
+- Le module CyberPanel pour WHMCS que vous pouvez télécharger depuis [le site officiel de CyberPanel](https://cyberpanel.net/).
 
-## Création de Panneaux d'Administration pour les Clients
+### Étapes d'intégration
 
-1. **Créer un compte utilisateur pour chaque client** :
-   - Allez dans **User Management > Create User** et créez un utilisateur pour chaque domaine client.
-2. **Assigner des permissions** :
-   - Associez chaque utilisateur à son domaine respectif pour leur permettre de gérer leurs propres services.
+1. **Installation du module CyberPanel dans WHMCS :**
+   - Téléchargez le module CyberPanel pour WHMCS.
+   - Décompressez le fichier et placez le dossier du module dans le répertoire suivant de WHMCS :
+     ```
+     /path/to/whmcs/modules/servers/
+     ```
 
----
+2. **Configurer WHMCS pour utiliser le module CyberPanel :**
+   - Connectez-vous à votre tableau de bord WHMCS.
+   - Allez dans **Setup > Products/Services > Servers** et cliquez sur **Add New Server**.
+   - Remplissez les informations suivantes :
+     - **Nom du serveur** : CyberPanel
+     - **Type de serveur** : CyberPanel
+     - **URL du serveur** : URL de votre serveur CyberPanel.
+     - **Nom d'utilisateur** : Le nom d'utilisateur administrateur de CyberPanel.
+     - **Mot de passe** : Le mot de passe administrateur de CyberPanel.
+   - Cliquez sur **Save Changes** pour enregistrer.
 
-## Intégration & Automatisation avec WHMCS 
-
-Intégration & automatiser la gestion des clients, la facturation et la création des comptes, envisagez d’intégrer **WHMCS** avec **CyberPanel**.
-
-### Étape 1 : Uploader le Module de Cyberpanel
-** Télécharger le fichier grace à 
-```bash
-git clone https://github.com/jetchirag/cyberpanel-whmcs.git cyberpanel
-```
-*** Extrait et uploader le dossier dans
-
-cloudpilote>File Manager> Dossier de WHMCS > modules > Server 
-
-
-### Étape 2 : Interconnexion
-** Se rendre sur WHMCS > System Setting
-** > Server > Create a New Group
-![Creation du Groupe]([1.png])
-** > Server >Create a New Server
-![Creation du Serveur]([2.png])
-** > Product Service > Create New groupe
-** > Product Service > Create New service
-
-
-
-
-
-
+3. **Créer un groupe de serveurs dans WHMCS :**
+   - Allez dans **Setup > Products/Services > Server Groups**.
+   - Cliquez sur **Create a New Server Group** et associez le serveur CyberPanel au groupe.
 
 ---
 
-## Conclusion
+## Configuration des services dans CyberPanel
 
-Votre serveur CyberPanel est maintenant configuré pour héberger plusieurs clients avec des services de messagerie complets, incluant SSL et les enregistrements DNS nécessaires pour une bonne délivrabilité. Testez régulièrement les services de messagerie pour vous assurer de leur bon fonctionnement.
+### Étapes de configuration
 
---- 
+1. **Ajouter un produit WHMCS :**
+   - Dans WHMCS, allez dans **Setup > Products/Services > Products/Services**.
+   - Cliquez sur **Create a New Product** et configurez les options suivantes :
+     - **Type de produit** : Shared Hosting.
+     - **Groupe de produits** : Choisissez un groupe comme "CyberPanel Plans".
+     - **Nom et description** du produit, ainsi que le prix.
 
-## Ressources Additionnelles
-- [Documentation officielle CyberPanel](https://cyberpanel.net/docs/)
-- [Guide d’intégration WHMCS avec CyberPanel](https://cyberpanel.net/docs/whmcs-integration/)
+2. **Associer le module CyberPanel au produit :**
+   - Allez dans l'onglet **Module Settings** de votre produit dans WHMCS.
+   - Sélectionnez **CyberPanel** comme module.
+   - Configurez les options spécifiques du produit comme le plan d'hébergement, les limites de ressources, et d'autres paramètres.
+   - Cliquez sur **Save Changes** pour enregistrer le produit.
+
+3. **Tester la configuration :**
+   - Créez un compte d'essai pour vérifier que le service est correctement provisionné sur CyberPanel.
+
+---
+
+## Personnalisation de la page CyberPanel pour les clients
+
+CyberPanel permet de personnaliser l'interface pour mieux s'adapter à votre marque et améliorer l'expérience de vos clients.
+
+### Étapes de personnalisation
+
+1. **Accédez à l'outil de personnalisation de CyberPanel :**
+   - Connectez-vous à l’interface d'administration de CyberPanel.
+   - Allez dans **Customization > Branding**.
+
+2. **Changer le logo et les couleurs :**
+   - Téléversez un logo personnalisé pour l’interface de CyberPanel.
+   - Modifiez les couleurs principales de l’interface (par exemple, la couleur de fond et des boutons) pour correspondre à votre charte graphique.
+
+3. **Modifier les messages et options visibles :**
+   - Si vous souhaitez personnaliser davantage l’apparence ou les messages de l’interface, vous pouvez modifier les fichiers CSS ou HTML :
+     - Les fichiers sont situés sous :
+       ```
+       /usr/local/CyberCP/public/css
+       ```
+     - Vous pouvez ajuster les styles ou ajouter de nouvelles fonctionnalités via ces fichiers.
+
+4. **Ajouter des liens utiles pour les clients :**
+   - Vous pouvez ajouter des liens ou des tutoriels dans le tableau de bord de CyberPanel pour aider vos clients.
+   - Vous devrez peut-être personnaliser les templates dans le répertoire d'administration de CyberPanel pour afficher ces liens dans des sections spécifiques.
+
+---
+
+## Configuration des services de messagerie (MX, TXT, DKIM, MSPMX)
+
+Lors de la création d'un service de messagerie pour un client, CyberPanel vous permet de configurer les enregistrements DNS nécessaires pour garantir la livraison correcte des e-mails et la sécurité du domaine.
+
+### Enregistrements à configurer
+
+1. **Enregistrement MX (Mail Exchange)** :
+   L'enregistrement MX indique le serveur responsable de la réception des e-mails pour un domaine.
+   - Exemple de configuration MX :
+     ```
+     domaine.com.    IN    MX    10 mail.domaine.com.
+     ```
+
+2. **Enregistrement TXT** :
+   L'enregistrement TXT est utilisé pour diverses vérifications de sécurité, comme le SPF (Sender Policy Framework) qui définit quels serveurs peuvent envoyer des e-mails pour ce domaine.
+   - Exemple d'enregistrement TXT pour SPF :
+     ```
+     domaine.com.    IN    TXT    "v=spf1 mx ~all"
+     ```
+
+3. **Configuration DKIM (DomainKeys Identified Mail)** :
+   DKIM permet de signer numériquement les e-mails pour vérifier leur authenticité.
+   - Après avoir activé DKIM dans CyberPanel, un enregistrement TXT sera généré. Voici un exemple :
+     ```
+     default._domainkey.domaine.com.    IN    TXT    "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA..."
+     ```
+
+4. **Enregistrement MSPMX** :
+   Un enregistrement MSPMX est utilisé pour spécifier le serveur de messagerie primaire. CyberPanel le configure automatiquement lors de l'ajout d'un service de messagerie.
+   - Exemple d'enregistrement MSPMX :
+     ```
+     domaine.com.    IN    MX    20 mail.domaine.com.
+     ```
+
+### Processus automatisé pour chaque service mail commandé
+
+À chaque fois qu'un client commande un service de messagerie, les enregistrements suivants sont automatiquement configurés pour son domaine :
+- **Enregistrement MX** : Configuration du serveur de messagerie principal.
+- **Enregistrement TXT** : Pour le SPF et autres vérifications.
+- **Enregistrement DKIM** : Génération d'une clé DKIM pour signer les e-mails.
+- **Enregistrement MSPMX** : Associer un serveur MSPMX.
+
+CyberPanel gère ces configurations de manière transparente, et vous pouvez visualiser ces paramètres dans le panneau de gestion DNS de CyberPanel.
+
+---
+
+## Ressources supplémentaires
+
+- [Documentation officielle de CyberPanel](https://cyberpanel.net/documentation/)
+- [Forum d’assistance CyberPanel](https://community.cyberpanel.net/)
+- [Documentation WHMCS](https://docs.whmcs.com/)
+
+---
+
+Merci d'avoir consulté cette documentation. Si vous avez des questions ou avez besoin de plus de détails, n'hésitez pas à consulter les ressources supplémentaires ou à poser vos questions sur le forum !
